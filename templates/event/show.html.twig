@@ -1,34 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Soirée jazz au Kiosque{% endblock %}
+{% block title %}{{ evenement.titre }}{% endblock %}
 
 {% block body %}
-    <a class="back-link" href="{{ path('app_home') }}">← Retour aux événements</a>
+    <a class="back-link" href="{{ path('app_home') }}">
+        Retour aux événements
+    </a>
 
-    <article class="cat-concert">
-        <header class="detail-hero" style="background-image: url('{{ asset('images/concert.jpg') }}')">
+    <article class="cat-{{ evenement.categorie.value }}">
+        <header class="detail-hero" style="<img src="{{ asset(evenement.picture) }}" alt="{{ evenement.titre }}">">
             <div class="detail-hero-content">
-                <span class="badge">Concert</span>
-                <h1>Soirée jazz au Kiosque</h1>
-                <p>Samedi 07/11/2026 · 20h30</p>
+                <span class="badge">
+                    {{ evenement.categorie.value|capitalize }}
+                </span>
+
+                <h1>{{ evenement.titre }}</h1>
+                <p>{{ evenement.date|date('d/m/Y à H:i') }}</p>
             </div>
         </header>
 
         <div class="detail-grid">
             <section class="card">
                 <h2>Informations</h2>
-                <p>Le quartet CuRuba vous propose une soirée de jazz antillais au Kiosque du parc municipal.</p>
-                <p>Programme : 20h30 première partie, 21h30 concert principal. Buvette sur place, entrée libre sur inscription.</p>
+                <p>{{ evenement.informations|nl2br }}</p>
             </section>
 
             <aside class="card booking">
-                <p class="places"><strong>12</strong> places restantes sur 80</p>
-                <div class="progress"><span style="width: 85%"></span></div>
-
-                <form method="post">
-                    <button type="submit" class="btn btn-block">S'inscrire</button>
-                </form>
-
+                <p class="places">
+                    <strong>{{ evenement.placeNumber }}</strong> places au total
+                </p>
                 {# Variante quand l'utilisateur est déjà inscrit :
                 <p class="muted">Vous êtes inscrit à cet événement.</p>
                 <form method="post">

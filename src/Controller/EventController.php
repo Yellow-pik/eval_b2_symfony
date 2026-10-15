@@ -37,7 +37,7 @@ final class EventController extends AbstractController
     #[Route('/evenement/{id}', name: 'app_event_show', requirements: ['id' => '\d+'])]
     public function show(int $id, EntityManagerInterface $entityManagerInterface, Request $request): Response
     {
-        $evenement = $entityManagerInterface->getRepository(Evenement::class)->findBy(['id' => $id ]);
+        $evenement = $entityManagerInterface->getRepository(Evenement::class)->find(['id' => $id ]);
 
         return $this->render('event/show.html.twig', [
             'evenement' => $evenement,
