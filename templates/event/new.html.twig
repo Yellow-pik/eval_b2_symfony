@@ -10,45 +10,46 @@
             <h1>Ajouter un événement</h1>
             <p class="muted">Votre événement sera visible après validation par un administrateur.</p>
 
-            <form class="form" method="post" enctype="multipart/form-data">
-                <div>
-                    <label for="event_title" class="required">Titre</label>
-                    <input type="text" id="event_title" name="event[title]" placeholder="Ex. : Soirée jazz au Kiosque" required>
-                </div>
+            {{ form_start(eventForm, {'attr': {'class': 'form'}}) }}
 
-                <div>
-                    <label for="event_date" class="required">Date</label>
-                    <input type="datetime-local" id="event_date" name="event[date]" required>
-                </div>
+                {{ form_errors(eventForm) }}
 
-                <div>
-                    <label for="event_information" class="required">Informations</label>
-                    <textarea id="event_information" name="event[information]" placeholder="Lieu, programme, tarif..." required></textarea>
-                </div>
+                {{ form_row(eventForm.titre, {
+                    'label': 'Titre',
+                    'attr': {'placeholder': 'Ex. : Soirée jazz au Kiosque'}
+                }) }}
 
-                <div>
-                    <label for="event_category">Catégorie</label>
-                    <select id="event_category" name="event[category]">
-                        <option value="Concert">Concert</option>
-                        <option value="Conférence">Conférence</option>
-                        <option value="Atelier">Atelier</option>
-                        <option value="Sport">Sport</option>
-                    </select>
-                </div>
+                {{ form_row(eventForm.date, {
+                    'label': 'Date',
+                    'type': 'datetime-local'
+                    }) }}
 
-                <div>
-                    <label for="event_places">Nombre de places</label>
-                    <input type="number" id="event_places" name="event[places]" min="1" value="20">
-                </div>
+                {{ form_row(eventForm.informations, {
+                    'label': 'Informations',
+                    'attr': {'placeholder': 'Lieu, programme, tarif...'}
+                    }) }}
 
-                <div>
-                    <label for="event_image">Image à la une</label>
-                    <input type="file" id="event_image" name="event[image]" accept="image/*">
-                    <div class="help-text">JPG, PNG ou WebP.</div>
-                </div>
+                {{ form_row(eventForm.categorie, {
+                    'label': 'Catégorie',
+                    'attr': {'placeholder': 'Ex. : Concert, Conférence, Atelier, Sport'}
+                    }) }}
 
-                <button type="submit">Enregistrer l'événement</button>
-            </form>
+                {{ form_row(eventForm.place_number, {
+                    'label': 'Nombre de places',
+                    'attr': {'min': 1, 'value': 20}
+                }) }}
+
+                {{ form_row(eventForm.picture, {
+                    'label': 'Image à la une',
+                    'help': 'JPG, PNG ou WebP.',
+                    'help_attr': {'class': 'help-text'}
+                    }) }}
+
+                {{ form_row(eventForm.submit, {
+                    'label': "Enregistrer l'événement"
+                }) }}
+
+            {{ form_end(eventForm) }}
         </div>
     </div>
 {% endblock %}
