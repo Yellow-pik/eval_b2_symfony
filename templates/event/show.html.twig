@@ -8,7 +8,7 @@
     </a>
 
     <article class="cat-{{ evenement.categorie.value }}">
-        <header class="detail-hero" style="<img src="{{ asset(evenement.picture) }}" alt="{{ evenement.titre }}">">
+        <header class="detail-hero" style="background-image: url('{{ asset(evenement.picture)|e('css') }}')">
             <div class="detail-hero-content">
                 <span class="badge">
                     {{ evenement.categorie.value|capitalize }}

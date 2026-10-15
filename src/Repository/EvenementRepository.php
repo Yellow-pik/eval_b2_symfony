@@ -16,6 +16,23 @@ class EvenementRepository extends ServiceEntityRepository
         parent::__construct($registry, Evenement::class);
     }
 
+    public function findForHome(string $categorie = ''): array
+    {
+        $requete = $this->createQueryBuilder('e')
+            ->where('e.statut = 1')
+            ->andWhere('e.date >= :now')
+            ->setParameter('now', new \DateTime())
+            ->orderBy('e.date', 'ASC');
+
+        if ($categorie !== '') {
+            $requete
+                ->andWhere('e.categorie = :categorie')
+                ->setParameter('categorie', $categorie);
+        }
+
+        return $requete->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return Evenement[] Returns an array of Evenement objects
 //     */
